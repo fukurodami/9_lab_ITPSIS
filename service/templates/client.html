@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Клиент</title>
+</head>
+<body>
+    <h1>Логин: {{ user }}</h1>
+    <form method="post">
+        {% csrf_token %}
+        <h3>Фамилия: {{ form.surname }}</h3>
+        <h3>Имя: {{ form.name }}</h3>
+        <h3>Отчество: {{ form.patronymic }}</h3>
+        <h3>Пол: {{ form.gender }}</h3>
+        <h3>Дата рождения: {{ form.birth_date }}</h3>
+        <h3>Номер телефона: {{ form.phone_number }}</h3>
+        <h3>Почтовый адрес: {{ form.e_mail }}</h3>
+        <h3>Фото: {{ form.photo }}</h3>
+        <button type="submit">Сохранить</button>
+    </form>
+</body>
+</html>

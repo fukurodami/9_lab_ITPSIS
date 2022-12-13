@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Main</title>
+    <link
+      href="https://fonts.googleapis.com/css?family=Montserrat:regular,500,600,
+    700,800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      media="screen"
+      href="{% static 'css/style.css' %}"
+    />
+</head>
+<body>
+    <div class="wrapper">
+        <header class="header">
+            <div class="header__container _container">
+
+                <a href="{% url 'main_page' %}" class="header__logo">
+                    <img src="../../media/beauty_logo.png" alt="">
+                    <h3 class="header__text">Бровушка</h3>
+                </a>
+                <nav class="header__menu">
+                    <ul class="menu__list">
+                        <li class="menu__item">
+                            <h3>+7(900)-921-8534</h3>
+                        </li>
+                        <li class="menu__item">
+                            <a href="#service" class="menu__link">Услуги</a>
+                        </li>
+                        <li class="menu__item">
+                            <a href="#products" class="menu__link">Товары</a>
+                        </li>
+                        <li class="menu__item">
+                            {% if user.is_authenticated %}
+                                <h3>
+                                    <a href="client/{{ user.id }}" class="menu__link user__name">{{ user }}</a>
+                                    <a href="{% url "logout" %}" class="menu__link user__logout">выйти</a>
+                                </h3>
+                            {% else %}
+                                <a href="{% url 'login' %}" class="menu__link user__login">войти</a>
+                            {% endif %}
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <main class="page">
+            <div class="main-block _container">
+                <div class="main-block__body">
+                    <h1 class="main-block__title">
+                        Красота тела и уход за собой
+                    </h1>
+                    <div class="main-block__text">
+                        Салон красоты Бровушка приглашает вас доверить создание привлекательного образа своим искусным мастерам.
+                    </div>
+                    <div class="main-block__buttons">
+                        <a href="#service" class="main-block__button main-block__button_pink">Записаться</a>
+                        <a href="#products" class="main-block__button main-block__button_border">Купить товары</a>
+                    </div>
+                </div>
+                <div class="main-block__image _ibg">
+                    <img src="../../media/main.jpg" alt="cover" />
+                </div>
+            </div>
+            <section class="services-block _container" id="service">
+                <h3 class="services__title">Услуги</h3>
+                <div class="services__body">
+                    {% for i in serv.values %}
+                        <div class="services__column">
+                            <div class="services__item">
+                                <img src="../../media/{{ i.photo }}" alt="">
+                                <h3 class="item-service__title">{{ i.title }}</h3>
+                                <div class="item-service__text">{{ i.description }}</div>
+                                <div class="item-service__text item_price">{{ i.price }}р. | {{ i.duration }}ч.</div>
+                                <a href="" class="item-service__button">Записаться</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </section>
+            <section class="product-block _container">
+                <h3 class="product__title" id="products">Товары</h3>
+                <div class="product__body">
+                    {% for i in prod %}
+                        <div class="product__column">
+                            <div class="product__item">
+                                <img src="../../media/{{ i.photo }}" alt="">
+                                <h3 class="item-product__title">{{ i.title }}</h3>
+                                <div class="item-product__text">{{ i.description }}</div>
+                                <div class="item-product__text">{{ i.production }}</div>
+                                <div class="item-product__text item_price">{{ i.price }}р.</div>
+                                <a href="" class="item-product__button">Купить</a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </section>
+            <section class="buy_block _container">
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit">Оформить</button>
+                </form>
+
+            </section>
+        </main>
+    </div>
+
+</body>
+</html>
